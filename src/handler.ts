@@ -233,14 +233,14 @@ const handleSendMessage = async (
 ): Promise<APIGatewayProxyResult> => {
   const senderClient = await getClient(senderConnectionId);
   console.log("this is a body ", body);
-  const nicknameTonickname = getNicknameToNickname([senderClient.nickname, body.recipientNickname]);
+  const nicknameToNickname = getNicknameToNickname([senderClient.nickname, body.recipientNickname]);
   await docClient
     .put({
       TableName: MESSAGES_TABLE_NAME,
       Item: {
         messageId: v4(),
         createdAt: new Date().getTime(),
-        nicknameTonickname: nicknameTonickname,
+        nicknameToNickname: nicknameToNickname,
         message: body.message,
         sender: senderClient.nickname,
       },
@@ -282,10 +282,14 @@ const handleGetMessages = async (
   body: GetMessagesBody,
 ): Promise<APIGatewayProxyResult> => {
   const client = await getClient(connectionId);
+  const valueNickname = getNicknameToNickname([client.nickname, body.targetNickname]);
+  console.log("body", body);
+  console.log("funciton getNickName", valueNickname);
+  console.log("MESSAGES_TABLE_NAME", MESSAGES_TABLE_NAME);
   const output = await docClient
     .query({
       TableName: MESSAGES_TABLE_NAME,
-      IndexName: "NicknameTonicknameIndex",
+      IndexName: "NicknameToNicknameIndex",
       KeyConditionExpression: "#nicknameToNickname = :nicknameToNickname",
       ExpressionAttributeNames: {
         "#nicknameToNickname": "nicknameToNickname",

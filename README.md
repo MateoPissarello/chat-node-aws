@@ -51,8 +51,12 @@ yarn install
 
 MIT.
 
+Send Message:
+{"action":"sendMessage","message":"estas aqui? necesito que hagas un chat","recipientNickname":"Mateo"}
+{"action":"sendMessage","message":"Hola Primo Felipe","recipientNickname":"Felipe"}
 
-{"action":"sendMessage","message":"Hola Primo","recipientNickname":"Mateo"}
+Get Messages:
+{"action":"getMessages", "targetNickname":"Mateo","limit":50}
 
 serverless deploy function --function websocketHandler
 
@@ -63,6 +67,32 @@ nvm install 14
 nvm use 14
 nvm list
 
-
+2:37:29
 
 npm install --global windows-build-tools
+
+npm install --cache
+npm install -g npm@latest
+npm install -g serverless
+npm install -g wscat
+npm install -g serverless-offline
+
+
+online
+wscat -c wss://e5sqe76r3k.execute-api.us-east-1.amazonaws.com/dev?nickname=Mateo
+wscat -c wss://e5sqe76r3k.execute-api.us-east-1.amazonaws.com/dev?nickname=Felipe
+
+Local
+serverless offline
+wscat -c ws://localhost:3001/dev?nickname=Mateo
+wscat -c wss://e5sqe76r3k.execute-api.us-east-1.amazonaws.com/dev?nickname=Mateo
+
+
+
+messageId 02704c38-b6b4-4cfd-becf-6952aff60f1c
+
+02704c38-b6b4-4cfd-becf-6952aff60f1c
+1702938474458
+Hola Primo mateo
+Felipe#Mateo
+Felipe
