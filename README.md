@@ -16,6 +16,7 @@ Thanks to [`serverless-typescript`](https://github.com/prisma-labs/serverless-pl
 
 - [`serverless-framework`](https://github.com/serverless/serverless)
 - [`node.js`](https://nodejs.org)
+- [`wscat`] to install run `npm i -g wscat` 
 
 ## Usage
 
@@ -47,35 +48,30 @@ or:
 yarn install
 ```
 
-## Licence
 
-MIT.
+## Commands
+`Send Message`:
+    {"action":"sendMessage","message": (message), "recipientNickname": (nickname)}
+    `RecipientNickname`: _Is the nickname of the user that is going to receive the message._
+    Example:
+    - {"action":"sendMessage","message":"estas aqui? necesito que hagas un chat","recipientNickname":"Mateo"}
+    - {"action":"sendMessage","message":"Hola Primo Felipe","recipientNickname":"Felipe"}
+`Get Messages`:
+    {"action":"getMessages", "targetNickname":"(nickname)","limit":50}
+    `targetNickname`:_Is the nickname of the person we want to recover the messages with_
+    Example:
+        - {"action":"getMessages", "targetNickname":"Mateo","limit":50}
+        - {"action":"getMessages", "targetNickname":"Felipe","limit":50}
 
-Send Message:
-{"action":"sendMessage","message":"estas aqui? necesito que hagas un chat","recipientNickname":"Mateo"}
-{"action":"sendMessage","message":"Hola Primo Felipe","recipientNickname":"Felipe"}
-
-Get Messages:
-{"action":"getMessages", "targetNickname":"Mateo","limit":50}
-
-serverless deploy function --function websocketHandler
 
 
-install nvm
-https://github.com/coreybutler/nvm-windows/releases
-nvm install 14
-nvm use 14
-nvm list
+## Serverless not deploying solution
 
-2:37:29
-
-npm install --global windows-build-tools
-
-npm install --cache
-npm install -g npm@latest
-npm install -g serverless
-npm install -g wscat
-npm install -g serverless-offline
+`If serverless deploy not working do the following` :
+1. Delete `.serverless`,`node_modules` and `.build` folders
+2. run `npm install -g npm@latest`
+3. run `npm i`
+4. run `serverless deploy` again and it should work
 
 
 online
@@ -87,12 +83,8 @@ serverless offline
 wscat -c ws://localhost:3001/dev?nickname=Mateo
 wscat -c wss://e5sqe76r3k.execute-api.us-east-1.amazonaws.com/dev?nickname=Mateo
 
+## Licence
+
+MIT.
 
 
-messageId 02704c38-b6b4-4cfd-becf-6952aff60f1c
-
-02704c38-b6b4-4cfd-becf-6952aff60f1c
-1702938474458
-Hola Primo mateo
-Felipe#Mateo
-Felipe
