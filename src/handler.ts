@@ -225,7 +225,7 @@ const handleGetClients = async (connectionId: string): Promise<APIGatewayProxyRe
 };
 
 const createClientsMessage = (clients: Client[]): string =>
-  JSON.stringify({ type: "clients", value: clients });
+  JSON.stringify({ type: "clients", value: { clients } });
 
 const handleSendMessage = async (
   senderConnectionId: string,
@@ -234,16 +234,19 @@ const handleSendMessage = async (
   const senderClient = await getClient(senderConnectionId);
   console.log("this is a body ", body);
   const nicknameToNickname = getNicknameToNickname([senderClient.nickname, body.recipientNickname]);
+
+  const message = {
+    messageId: v4(),
+    createdAt: new Date().getTime(),
+    nicknameToNickname: nicknameToNickname,
+    message: body.message,
+    sender: senderClient.nickname,
+  };
+
   await docClient
     .put({
       TableName: MESSAGES_TABLE_NAME,
-      Item: {
-        messageId: v4(),
-        createdAt: new Date().getTime(),
-        nicknameToNickname: nicknameToNickname,
-        message: body.message,
-        sender: senderClient.nickname,
-      },
+      Item: message,
     })
     .promise();
 
@@ -255,8 +258,7 @@ const handleSendMessage = async (
       JSON.stringify({
         type: "message",
         value: {
-          sender: senderClient.nickname,
-          message: body.message,
+          message
         },
       }),
     );

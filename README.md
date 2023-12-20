@@ -16,7 +16,7 @@ Thanks to [`serverless-typescript`](https://github.com/prisma-labs/serverless-pl
 
 - [`serverless-framework`](https://github.com/serverless/serverless)
 - [`node.js`](https://nodejs.org)
-- [`wscat`] to install run `npm i -g wscat` 
+- `wscat` to install run `npm i -g wscat` 
 
 ## Usage
 
